@@ -11,6 +11,7 @@ from component.function.maxfontsize import MaxFontSize
 
 from PyQt6.QtCore import Qt
 
+
 class TextComp(DisplayComp):
     """
     Text component for scoreboard.
@@ -27,7 +28,6 @@ class TextComp(DisplayComp):
 
         self._initConn()
 
-
     # Override
     def _firstTimeProp(self):
         self._properties.appendPropHead("File Properties", CompPropTemplate.fileProperty)
@@ -36,11 +36,9 @@ class TextComp(DisplayComp):
         self._properties["Font Color"] = "#EEEEEE"
         self._properties["Font Weight"] = 4
 
-
     # Override
     def getName(self) -> str:
         return "Text Display"
-
 
     # Override
     def _reloadProperty(self) -> None:
@@ -48,7 +46,6 @@ class TextComp(DisplayComp):
         self._properties["Display Text"] = self.label.text()
         self._properties["Display Font"] = self.label.font().family()
         self._properties["Font Size"] = self.label.font().pointSize()
-
 
     # Override
     def _reconfProperty(self):
@@ -68,7 +65,7 @@ class TextComp(DisplayComp):
         if (self._properties["Transparent Background"]):
             self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
             self.label.setStyleSheet(f"{self.label.styleSheet()}background-color:transparent;")
-            
+
         match self._properties["Text Alignment"]:
             case 0:
                 self.label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
@@ -79,23 +76,23 @@ class TextComp(DisplayComp):
 
         self.label.setText(self._properties["Display Text"])
 
-
     # Override
     def setFileDir(self, dirName):
         if (self._properties["Enable File Output"]):
             self._properties["File Output Location"] = dirName.format(self.objectName())
             self.fileOut.setOutputFile(self._properties["File Output Location"])
 
-
     def _initConn(self):
         self._connection.appendCallBack("Set Text", self._setText)
-
 
     def _setText(self, text):
         self.label.setText(text)
         if (self._properties["Enable File Output"]):
             self.fileOut.outputFile(text)
-
+        if (self._properties["Auto Font Size"]):
+            font = self.label.font()
+            font.setPointSizeF(MaxFontSize.maxFontSize(self, self.label))
+            self.label.setFont(font)
 
     def resizeEvent(self, a0):
         super().resizeEvent(a0)
