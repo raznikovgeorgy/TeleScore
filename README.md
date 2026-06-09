@@ -1,3 +1,5 @@
+fork with drag-n-drop patch for score windows
+
 <img src="https://github.com/JumpShot-Interactive/TeleScore/blob/main/img/logo.png" alt="logo" width="200"/>
 
 # TeleScore ![GitHub all releases](https://img.shields.io/github/downloads/JumpShot-Interactive/TeleScore/total) [![GitHub release](https://img.shields.io/github/release/JumpShot-Interactive/TeleScore.svg)](https://gitHub.com/JumpShot-Interactive/TeleScore/releases/) [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
